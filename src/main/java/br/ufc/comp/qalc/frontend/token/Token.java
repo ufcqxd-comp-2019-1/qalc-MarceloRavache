@@ -64,6 +64,51 @@ public abstract class Token {
     }
 
     /**
+     * Obter lexema associado ao token.
+     * <p>
+     * <strong>ATENÇÃO</strong>:
+     * <ul>
+     *     <li><em>Deve retornar lexema, mesmo que este não esteja armazenado!</em></li>
+     * </ul>
+     *
+     * @return Lexema associado ao token.
+     */
+    @Override
+    public String toString() {
+        return stringValue;
+    }
+
+    /**
+     * Obter número da linha onde se encontra o lexema deste token.
+     * Valores iniciam de {@code 1}.
+     *
+     * @return Número da linha do lexema.
+     */
+    public long getLineNumber() {
+        return lineNum;
+    }
+
+    /**
+     * Obter coluna onde inicia o lexema deste token, relativo ao início da linha.
+     * Valores iniciam de {@code 1}.
+     *
+     * @return Coluna onde inicia o lexema.
+     */
+    public long getColumnStart() {
+        return columnStart;
+    }
+
+    /**
+     * Obter coluna onde termina o lexema deste token, relativo ao início da linha.
+     * Valores iniciam de {@code 1}.
+     *
+     * @return Coluna onde termina o lexema.
+     */
+    public long getColumnEnd() {
+        return columnEnd;
+    }
+
+    /**
      * Método responsável por descartar o lexema, convertendo-o à representação
      * que será usada na manipulação do token e preenchendo os demais atributos
      * que dele advêm.

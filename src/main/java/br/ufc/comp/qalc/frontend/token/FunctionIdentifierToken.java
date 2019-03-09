@@ -21,6 +21,17 @@ public class FunctionIdentifierToken extends Token {
         }
     }
 
+    /**
+     * Obtém o identificador associado ao token.
+     *
+     * @return Identificador de função associado.
+     */
+    public String getFunctionIdentifier() {
+        interpretAttributes();
+
+        return stringValue;
+    }
+
     @Override
     public String getTokenIdentifier() {
         return "FUNCID";

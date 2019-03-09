@@ -29,6 +29,17 @@ public class ResultIdentifierToken extends Token {
         //      atribuindo ao campo `resultNumber`.
     }
 
+    /**
+     * Obtém a posição de resultado associado ao token.
+     *
+     * @return Posição de resultado associado.
+     */
+    public long getResultNumber() {
+        interpretAttributes();
+
+        return resultNumber;
+    }
+
     @Override
     public String getTokenIdentifier() {
         return "RESID";

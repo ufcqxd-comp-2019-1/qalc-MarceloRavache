@@ -19,6 +19,17 @@ public class VariableIdentifierToken extends Token {
         // TODO Se o lexema ainda existir e ainda não tiver sido interpretado, descartar o `$`.
     }
 
+    /**
+     * Obtém o identificador associado ao token.
+     *
+     * @return Identificador de variável associado.
+     */
+    public String getVariableIdentifier() {
+        interpretAttributes();
+
+        return stringValue;
+    }
+
     @Override
     public String getTokenIdentifier() {
         return "VARID";
