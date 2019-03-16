@@ -290,7 +290,7 @@ public class Scanner {
         }else{
             System.out.println("ERRO! Lexer: ");
             System.out.print(source.getCurrentChar());
-            
+
         }
 
         return null;
