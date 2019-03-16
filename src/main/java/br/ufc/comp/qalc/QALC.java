@@ -136,17 +136,20 @@ public class QALC {
                     InputStream inputStream = new FileInputStream(qalc.readFrom);
                     Source source = new Source(inputStream);
                     Scanner scan = new Scanner(source);
-                    while(true){
-                        NewTokenMessage proxToken = new NewTokenMessage(scan.getNextToken());
 
-                        if(proxToken.getToken().getTokenIdentifier() == "%EOF%"){
-                            break;
-                        }
-                        if((proxToken.getToken().getTokenIdentifier() != "COM") ||(proxToken.getToken().getTokenIdentifier() != "WHITE")) {
-                            MessageCenter.deliver(proxToken);
+                    while(true) {
+
+                        NewTokenMessage proxToken = new NewTokenMessage(scan.getNextToken());
+                        if (proxToken != null) {
+                            if (proxToken.getToken().getTokenIdentifier() == "%EOF%") {
+                                break;
+                            }else if ((proxToken.getToken().getTokenIdentifier() != "COM") && (proxToken.getToken().getTokenIdentifier() != "WHITE")) {
+                                MessageCenter.deliver(proxToken);
+                            }
+                        }else{
+                            System.out.print("ERRO");
                         }
                     }
-
                 }
                 // TODO Verificar e executar demais fases
 
