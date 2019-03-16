@@ -72,8 +72,8 @@ public class Source {
      */
     public char advance() throws IOException {
         final int nextChar = reader.read();
-
         if (nextChar > 0) {
+
             this.currentChar = (char) nextChar;
 
             ++this.currentPosition;

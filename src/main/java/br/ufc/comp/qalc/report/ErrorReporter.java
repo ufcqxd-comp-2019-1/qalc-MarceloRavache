@@ -29,5 +29,6 @@ public class ErrorReporter extends BasicReporter {
     @Override
     public void consume(Message message) {
         // TODO
+        System.out.println("Error Lexer!");
     }
 }

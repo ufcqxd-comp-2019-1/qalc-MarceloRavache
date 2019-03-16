@@ -1,14 +1,14 @@
 package br.ufc.comp.qalc;
 
+import br.ufc.comp.qalc.frontend.Scanner;
+import br.ufc.comp.qalc.frontend.Source;
 import br.ufc.comp.qalc.report.MessageCenter;
 import br.ufc.comp.qalc.report.TokensReporter;
 import br.ufc.comp.qalc.report.messages.MessageCategory;
+import br.ufc.comp.qalc.report.messages.NewTokenMessage;
 import picocli.CommandLine;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * Classe principal do interpretador.
@@ -51,7 +51,7 @@ public class QALC {
                     "\n@|bold Valores válidos:|@ ${COMPLETION-CANDIDATES}." +
                     "\n@|bold Valor padrão:|@ @|underline ${DEFAULT-VALUE}|@."
     )
-    InterpreterPass stopAt = InterpreterPass.RUNNER;
+    InterpreterPass stopAt = InterpreterPass.LEXER; //InterpreterPass.RUNNER;
 
     /**
      * Indica o nível de detalhamento a ser usado no arquivo de saída, se solicitado.
@@ -78,7 +78,7 @@ public class QALC {
             description = "Informa o arquivo a ser usado como entrada. Caso não seja informado, " +
                     "lê da entrada-padrão."
     )
-    File readFrom = null;
+    File readFrom = new File("/home/overnull/entrada");//null;
 
     @CommandLine.Option(
             names = {"-d", "--dump-to"},
@@ -86,7 +86,7 @@ public class QALC {
             description = "Arquivo onde escrever a saída solicitada. Caso não seja informado, " +
                     "escreve para a saída-padrão."
     )
-    File outputTo = null;
+    File outputTo = new File("/home/overnull/saida");//null;
 
     public static void main(String[] args) {
         QALC qalc = new QALC();
@@ -104,7 +104,7 @@ public class QALC {
                 // Alterar esta porção do código
                 // ---->
 
-                OutputStream outputToStream = qalc.outputTo == null ? System.out : new FileOutputStream(qalc.outputTo);
+                OutputStream outputToStream = /*qalc.outputTo == null ? System.out : */new FileOutputStream(qalc.outputTo);
 
                 // WARNING: Apenas a última fase deve gerar saída.
                 switch (qalc.stopAt) {
@@ -133,6 +133,20 @@ public class QALC {
                 if (qalc.stopAt.ordinal() >= InterpreterPass.LEXER.ordinal()) {
                     // Fase de Análise Léxica deve ser executada
                     // TODO Executar análise léxica
+                    InputStream inputStream = new FileInputStream(qalc.readFrom);
+                    Source source = new Source(inputStream);
+                    Scanner scan = new Scanner(source);
+                    while(true){
+                        NewTokenMessage proxToken = new NewTokenMessage(scan.getNextToken());
+
+                        if(proxToken.getToken().getTokenIdentifier() == "%EOF%"){
+                            break;
+                        }
+                        if((proxToken.getToken().getTokenIdentifier() != "COM") ||(proxToken.getToken().getTokenIdentifier() != "WHITE")) {
+                            MessageCenter.deliver(proxToken);
+                        }
+                    }
+
                 }
                 // TODO Verificar e executar demais fases
 
