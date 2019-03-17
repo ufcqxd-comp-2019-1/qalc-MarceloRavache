@@ -51,7 +51,7 @@ public class QALC {
                     "\n@|bold Valores válidos:|@ ${COMPLETION-CANDIDATES}." +
                     "\n@|bold Valor padrão:|@ @|underline ${DEFAULT-VALUE}|@."
     )
-    InterpreterPass stopAt = InterpreterPass.LEXER; //InterpreterPass.RUNNER;
+    InterpreterPass stopAt = InterpreterPass.RUNNER;
 
     /**
      * Indica o nível de detalhamento a ser usado no arquivo de saída, se solicitado.
@@ -78,7 +78,7 @@ public class QALC {
             description = "Informa o arquivo a ser usado como entrada. Caso não seja informado, " +
                     "lê da entrada-padrão."
     )
-    File readFrom = new File("/home/overnull/entrada");//null;
+    File readFrom = null;
 
     @CommandLine.Option(
             names = {"-d", "--dump-to"},
@@ -86,7 +86,7 @@ public class QALC {
             description = "Arquivo onde escrever a saída solicitada. Caso não seja informado, " +
                     "escreve para a saída-padrão."
     )
-    File outputTo = new File("/home/overnull/saida");//null;
+    File outputTo = null;
 
     public static void main(String[] args) {
         QALC qalc = new QALC();
