@@ -306,24 +306,21 @@ public class Scanner {
 
             return new WhiteToken(currentLine, lexemaStart, stringValue);
 
-        }else {//Error
-            System.out.println("ERRO! Lexer: ");
-            System.out.print(source.getCurrentChar());
-
-            long currentLine = source.getCurrentLine();
-            long lexemaStart = source.getCurrentColumn();
-
-            StringBuilder lexema = new StringBuilder();
-            lexema.append(source.getCurrentChar());
-            String stringValue = lexema.toString();
-
-            source.advance();
-
-            return new ErrorToken(currentLine, lexemaStart, stringValue);
-
         }
+        System.out.println("ERRO! Lexer: ");
+        System.out.print(source.getCurrentChar());
 
-        //return null;
+        long currentLine = source.getCurrentLine();
+        long lexemaStart = source.getCurrentColumn();
+
+        StringBuilder lexema = new StringBuilder();
+        lexema.append(source.getCurrentChar());
+        String stringValue = lexema.toString();
+
+        source.advance();
+
+        return new ErrorToken(currentLine, lexemaStart, stringValue);
+
 }
 
     /**
